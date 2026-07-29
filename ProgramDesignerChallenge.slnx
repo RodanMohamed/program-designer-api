@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ProgramDesigner.API/ProgramDesigner.API.csproj" />
+  <Project Path="ProgramDesigner.BLL/ProgramDesigner.BLL.csproj" />
+  <Project Path="ProgramDesigner.Common/ProgramDesigner.Common.csproj" Id="aaf42921-4eef-4938-a1c0-367742463c45" />
+  <Project Path="ProgramDesigner.DAL/ProgramDesigner.DAL.csproj" />
+  <Project Path="ProgramDesigner.Tests/ProgramDesigner.Tests.csproj" Id="8f224a1d-62d4-4913-ba80-ca324f6104cd" />
+</Solution>
