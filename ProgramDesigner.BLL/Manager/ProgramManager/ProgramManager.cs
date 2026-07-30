@@ -61,8 +61,7 @@ namespace ProgramDesigner.BLL.Manager.ProgramManagers
 
             ProgramItem rootEntity = BuildItemEntity(dto.RootGroup, 0, keyToEntity, flatDtos, buildErrorMessages);
 
-            LinkPrerequisites(flatDtos, keyToEntity, buildErrorMessages);
-
+            ValidatePrerequisiteReferences(flatDtos, keyToEntity, buildErrorMessages);
             if (buildErrorMessages.Count > 0)
             {
                 List<Error> referenceErrors = new List<Error>();
@@ -86,10 +85,13 @@ namespace ProgramDesigner.BLL.Manager.ProgramManagers
 
             await _unitOfWork.LearningPrograms.AddAsync(program);
             await _unitOfWork.SaveChangesAsync();
+            ApplyPrerequisiteLinks(flatDtos, keyToEntity);
+            await _unitOfWork.SaveChangesAsync();
 
             ProgramDto resultDto = _mapper.Map<ProgramDto>(program);
 
             return GeneralResult<ProgramDto>.Ok(resultDto);
+
         }
 
         public async Task<GeneralResult<ProgramDto>> GetProgramByIdAsync(int id)
@@ -201,10 +203,10 @@ namespace ProgramDesigner.BLL.Manager.ProgramManagers
             return entity;
         }
 
-        private void LinkPrerequisites(
-        List<CreateProgramItemDto> flatDtos,
-        Dictionary<string, ProgramItem> keyToEntity,
-        List<string> errorMessages)
+        private void ValidatePrerequisiteReferences(
+    List<CreateProgramItemDto> flatDtos,
+    Dictionary<string, ProgramItem> keyToEntity,
+    List<string> errorMessages)
         {
             foreach (CreateProgramItemDto itemDto in flatDtos)
             {
@@ -222,6 +224,18 @@ namespace ProgramDesigner.BLL.Manager.ProgramManagers
                 if (!keyToEntity.ContainsKey(itemDto.PrerequisiteKey))
                 {
                     errorMessages.Add("PrerequisiteKey '" + itemDto.PrerequisiteKey + "' referenced by '" + itemDto.Key + "' does not exist in the request.");
+                }
+            }
+        }
+
+        private void ApplyPrerequisiteLinks(
+            List<CreateProgramItemDto> flatDtos,
+            Dictionary<string, ProgramItem> keyToEntity)
+        {
+            foreach (CreateProgramItemDto itemDto in flatDtos)
+            {
+                if (itemDto.PrerequisiteKey == null)
+                {
                     continue;
                 }
 
@@ -230,4 +244,5 @@ namespace ProgramDesigner.BLL.Manager.ProgramManagers
             }
         }
     }
-}
+ }
+

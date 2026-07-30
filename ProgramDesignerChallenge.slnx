@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="ProgramDesigner.API/ProgramDesigner.API.csproj" />
   <Project Path="ProgramDesigner.BLL/ProgramDesigner.BLL.csproj" />
   <Project Path="ProgramDesigner.Common/ProgramDesigner.Common.csproj" Id="aaf42921-4eef-4938-a1c0-367742463c45" />

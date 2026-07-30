@@ -10,7 +10,7 @@ and validates that structure for logical errors and reachability risks.
 ## Tech Stack
 
 - **.NET 10 / C#**
-- **Entity Framework Core** (Code First, migrations, SQL Server / LocalDB — no Docker required)
+- **Entity Framework Core** (Code First, migrations, SQL Server / LocalDB )
 - **AutoMapper** — entity → DTO mapping
 - **FluentValidation** — request shape validation
 - **Scalar** — interactive OpenAPI documentation (replaces Swagger UI)
