@@ -1,10 +1,9 @@
-
 using Microsoft.EntityFrameworkCore;
-using ProgramDesigner.BLL.ServicesExtension;
-using ProgramDesigner.DAL.Data.Context;
-using ProgramDesigner.DAL.Data.Models;
-using ProgramDesigner.DAL.SeedDataProvider;
-using ProgramDesigner.DAL.ServicesExtension;
+using ProgramDesigner.Application.ServicesExtension;
+using ProgramDesigner.Domain.Services;
+using ProgramDesigner.Infrastructure.Data.Context;
+using ProgramDesigner.Infrastructure.SeedDataProvider;
+using ProgramDesigner.Infrastructure.ServicesExtension;
 using Scalar.AspNetCore;
 
 namespace ProgramDesigner.API
@@ -15,33 +14,37 @@ namespace ProgramDesigner.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddDALServices(builder.Configuration);
-            builder.Services.AddBLLServices();
-            builder.Services.AddControllers();
-
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.UnmappedMemberHandling =
+                    System.Text.Json.Serialization.JsonUnmappedMemberHandling.Disallow;
+            });
             builder.Services.AddOpenApi();
 
+            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
+
+            builder.Services.AddScoped<IPrerequisiteValidationService, PrerequisiteValidationService>();
+            builder.Services.AddScoped<IProgramSimulationService, ProgramSimulationService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
                 app.MapScalarApiReference();
             }
+
             using (IServiceScope scope = app.Services.CreateScope())
             {
                 ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await dbContext.Database.MigrateAsync();
                 await ComputerScienceSeeder.SeedAsync(dbContext);
             }
+
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();

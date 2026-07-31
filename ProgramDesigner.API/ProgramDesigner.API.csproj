@@ -12,16 +12,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.16.16" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProgramDesigner.BLL\ProgramDesigner.BLL.csproj" />
+    <ProjectReference Include="..\ProgramDesigner.Application\ProgramDesigner.Application.csproj" />
+    <ProjectReference Include="..\ProgramDesigner.Domain\ProgramDesigner.Domain.csproj" />
+    <ProjectReference Include="..\ProgramDesigner.Infrastructure\ProgramDesigner.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

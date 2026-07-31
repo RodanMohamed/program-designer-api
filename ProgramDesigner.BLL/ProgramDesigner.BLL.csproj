@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProgramDesigner.Common\ProgramDesigner.Common.csproj" />
-    <ProjectReference Include="..\ProgramDesigner.DAL\ProgramDesigner.DAL.csproj" />
   </ItemGroup>
 
 </Project>

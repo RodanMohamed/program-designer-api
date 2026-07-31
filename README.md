@@ -152,9 +152,16 @@ identifier used to wire up prerequisites within the same request;
 }
 ```
 
-Returns `201 Created` with the saved program (real IDs assigned), or `400`
-with a list of errors if the shape is invalid or a `PrerequisiteKey` doesn't
-resolve to anything in the request.
+Returns 201 Created with the saved program (real IDs assigned), or 400 with a list of errors if 
+the shape is invalid, a PrerequisiteKey doesn't resolve to anything in the request, or an item's
+prerequisiteKey points at itself.
+
+Note that a structurally valid tree is always saved, even if it contains a logical problem such as 
+a prerequisite cycle between two items — that's a deliberate separation of concerns: creation only 
+checks that the request is well-formed and every reference resolves, while POST /programs/:id/validate
+is what actually detects cycles and reachability risks. This also sidesteps a known EF Core limitation
+where saving a brand-new cyclic self-reference in one pass can throw; the create flow saves the tree 
+first with no prerequisite links, then links them in a second pass once every item has a real Id.
 
 ### `GET /programs/{id}`
 

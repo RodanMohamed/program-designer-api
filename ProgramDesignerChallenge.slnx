@@ -3,8 +3,8 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="ProgramDesigner.API/ProgramDesigner.API.csproj" />
-  <Project Path="ProgramDesigner.BLL/ProgramDesigner.BLL.csproj" />
-  <Project Path="ProgramDesigner.Common/ProgramDesigner.Common.csproj" Id="aaf42921-4eef-4938-a1c0-367742463c45" />
-  <Project Path="ProgramDesigner.DAL/ProgramDesigner.DAL.csproj" />
+  <Project Path="ProgramDesigner.Application/ProgramDesigner.Application.csproj" Id="d8b0bfe3-0e9c-49ce-8078-70e0fb36a154" />
+  <Project Path="ProgramDesigner.Domain/ProgramDesigner.Domain.csproj" Id="75155bb0-3d21-4d7c-a092-a8ed960f004d" />
+  <Project Path="ProgramDesigner.Infrastructure/ProgramDesigner.Infrastructure.csproj" Id="74dbad73-30d1-4137-bf7d-7f061bdae650" />
   <Project Path="ProgramDesigner.Tests/ProgramDesigner.Tests.csproj" Id="8f224a1d-62d4-4913-ba80-ca324f6104cd" />
 </Solution>
