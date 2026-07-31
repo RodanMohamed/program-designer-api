@@ -21,6 +21,12 @@ namespace ProgramDesigner.API
                     System.Text.Json.Serialization.JsonUnmappedMemberHandling.Disallow;
             });
             builder.Services.AddOpenApi();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+            });
+          
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
@@ -28,13 +34,17 @@ namespace ProgramDesigner.API
             builder.Services.AddScoped<IPrerequisiteValidationService, PrerequisiteValidationService>();
             builder.Services.AddScoped<IProgramSimulationService, ProgramSimulationService>();
 
+
             var app = builder.Build();
+          
+            app.UseCors("AllowFrontend");
 
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
                 app.MapScalarApiReference();
             }
+
 
             using (IServiceScope scope = app.Services.CreateScope())
             {

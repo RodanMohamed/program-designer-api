@@ -3,9 +3,6 @@
     public abstract class Entity
     {
         public int Id { get; protected set; }
-        // Test-only escape hatch: lets test builders assign predictable ids without
-        // going through EF Core. Visible only inside Domain + the Tests assembly
-        // (see InternalsVisibleTo in ProgramDesigner.Domain.csproj).
         internal void AssignId(int id) => Id = id;
 
 

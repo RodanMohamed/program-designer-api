@@ -4,8 +4,7 @@ using System.Text;
 
 namespace ProgramDesigner.Domain.Enums
 {
-    // Represents a participant's current relationship to a single ProgramItem
-    // at a given point in the simulation (not persisted — computed on the fly).
+    
     public enum ProgramItemStatus
     {
         Complete = 1,   // Already done
