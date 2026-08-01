@@ -167,8 +167,6 @@ once the whole tree is saved in one transaction.
    and navigate to that same address with `/scalar/v1` appended
    (e.g. `http://localhost:5219/scalar/v1`).
    ```
-
-
 Use Scalar to explore and test all available endpoints.
 
 Total time from clone to a running, seeded API: under 5 minutes.
