@@ -75,11 +75,11 @@ throwing for expected failure cases).
 
 Some decisions here were about balancing correctness, complexity, and time. Worth naming explicitly:
 
-** DDD over a simpler layered approach.**  A rich Domain Model adds real overhead: private constructors, factory methods, and EF Core's backing-field access mode are all more code than a plain anemic model with public setters and a DbContext doing the validating. For a CRUD-heavy API this would be over-engineering. It was worth it here because the domain has genuine invariants to protect (self-reference, nested prerequisites, choice-count consistency) — the extra structure buys guarantees, not just style.
+**DDD over a simpler layered approach.**  A rich Domain Model adds real overhead: private constructors, factory methods, and EF Core's backing-field access mode are all more code than a plain anemic model with public setters and a DbContext doing the validating. For a CRUD-heavy API this would be over-engineering. It was worth it here because the domain has genuine invariants to protect (self-reference, nested prerequisites, choice-count consistency) — the extra structure buys guarantees, not just style.
 
-** Multiple prerequisites as a join table, not a richer graph structure.**  A self-referencing many-to-many table is the simplest model that satisfies AND-semantics prerequisites.
+**Multiple prerequisites as a join table, not a richer graph structure.**  A self-referencing many-to-many table is the simplest model that satisfies AND-semantics prerequisites.
 
-** Impossible prerequisites rejected at creation , not left for validate to catch.**  This means Create does more work than a bare insert (it runs the full validation pass before saving). The trade-off is a slightly slower write path in exchange for a guarantee that nothing invalid ever reaches the database — reads (GET, validate) never need to handle "this program is fundamentally broken" as a possible state.
+**Impossible prerequisites rejected at creation , not left for validate to catch.**  This means Create does more work than a bare insert (it runs the full validation pass before saving). The trade-off is a slightly slower write path in exchange for a guarantee that nothing invalid ever reaches the database — reads (GET, validate) never need to handle "this program is fundamentally broken" as a possible state.
 
 ## Data Model
 
