@@ -80,6 +80,7 @@ Some decisions here were about balancing correctness, complexity, and time. Wort
 ** Multiple prerequisites as a join table, not a richer graph structure.**  A self-referencing many-to-many table is the simplest model that satisfies AND-semantics prerequisites.
 
 ** Impossible prerequisites rejected at creation , not left for validate to catch.**  This means Create does more work than a bare insert (it runs the full validation pass before saving). The trade-off is a slightly slower write path in exchange for a guarantee that nothing invalid ever reaches the database — reads (GET, validate) never need to handle "this program is fundamentally broken" as a possible state.
+
 ## Data Model
 
 ### Why Step and Group share one table (TPH)
