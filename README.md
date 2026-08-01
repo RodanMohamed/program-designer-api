@@ -161,10 +161,13 @@ once the whole tree is saved in one transaction.
 4. On first run, the database is automatically seeded with the full
    **Computer Science** scenario from the challenge brief (program `Id: 1`).
 5. Scalar API Reference opens automatically in your default browser. If it
-   doesn't, navigate to:
+   doesn't, check the console output after `dotnet run` for a line like:
+   Now listening on: http://localhost:5219
+
+   and navigate to that same address with `/scalar/v1` appended
+   (e.g. `http://localhost:5219/scalar/v1`).
    ```
-   https://localhost:{port}/scalar/v1
-   ```
+
 
 Use Scalar to explore and test all available endpoints.
 
